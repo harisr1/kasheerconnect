@@ -21,39 +21,24 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; }
   body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font);
-    font-size: 15px;
-    line-height: 1.6;
-    display: flex;
-    flex-direction: column;
+    background: var(--bg); color: var(--text);
+    font-family: var(--font); font-size: 15px; line-height: 1.6;
     min-height: 100vh;
   }
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-    opacity: 0.025;
-    pointer-events: none;
-    z-index: 0;
-  }
+
+  /* ── LOGIN ── */
   .screen {
     position: fixed; inset: 0;
     display: flex; align-items: center; justify-content: center;
-    padding: 24px;
-    z-index: 1;
+    padding: 24px; z-index: 10;
     transition: opacity .4s, transform .4s;
   }
   .screen.hidden { opacity: 0; pointer-events: none; transform: translateY(12px); }
 
-  /* ── LOGIN ── */
   .login-box {
     width: 100%; max-width: 400px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 40px 36px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 24px; padding: 40px 36px;
     box-shadow: 0 30px 80px rgba(0,0,0,.5);
     animation: fade-up .6s cubic-bezier(.16,1,.3,1) both;
   }
@@ -62,11 +47,7 @@
     to   { opacity:1; transform: translateY(0); }
   }
   .login-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; }
-  .login-logo-icon {
-    width: 36px; height: 36px; background: var(--red);
-    border-radius: 10px; display: flex; align-items: center;
-    justify-content: center; font-size: 16px; font-weight: 700; color: #fff;
-  }
+  .login-logo-icon { width: 36px; height: 36px; background: var(--red); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: #fff; }
   .login-logo-text { font-size: 15px; font-weight: 600; color: var(--text); }
   .login-logo-text span { color: var(--muted); font-weight: 400; }
   .login-title { font-size: 22px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
@@ -83,90 +64,125 @@
   .form-group input::placeholder { color: rgba(158,154,148,.4); }
   .error-msg {
     font-size: 12px; color: #e05555;
-    background: rgba(224,85,85,.08);
-    border: 1px solid rgba(224,85,85,.2);
-    border-radius: 8px; padding: 10px 14px;
-    margin-bottom: 16px; display: none;
+    background: rgba(224,85,85,.08); border: 1px solid rgba(224,85,85,.2);
+    border-radius: 8px; padding: 10px 14px; margin-bottom: 16px; display: none;
   }
   .error-msg.show { display: block; }
   .btn-login {
-    width: 100%; background: var(--red);
-    color: #fff; font-family: var(--font);
-    font-size: 14px; font-weight: 600;
-    padding: 14px; border: none; border-radius: 12px;
-    cursor: pointer; transition: background .2s, transform .15s; margin-top: 4px;
+    width: 100%; background: var(--red); color: #fff; font-family: var(--font);
+    font-size: 14px; font-weight: 600; padding: 14px; border: none;
+    border-radius: 12px; cursor: pointer; transition: background .2s, transform .15s; margin-top: 4px;
   }
   .btn-login:hover { background: #e04b3a; transform: translateY(-1px); }
   .btn-login:disabled { opacity: .6; cursor: not-allowed; transform: none; }
   .login-footer { margin-top: 20px; text-align: center; font-size: 11px; color: rgba(158,154,148,.4); }
 
-  /* ── ADMIN PANEL ── */
-  .admin-layout { width: 100%; min-height: 100vh; display: flex; flex-direction: column; }
+  /* ── ADMIN LAYOUT ── */
+  #screen-admin { position: relative; display: block; padding: 0; }
+  #screen-admin.hidden { display: none; }
+
   .admin-topbar {
     background: var(--surface); border-bottom: 1px solid var(--border);
     padding: 0 28px; height: 60px;
-    display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 5;
   }
   .topbar-left { display: flex; align-items: center; gap: 12px; }
-  .topbar-logo-icon {
-    width: 28px; height: 28px; background: var(--red); border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 12px; font-weight: 700; color: #fff;
-  }
+  .topbar-logo-icon { width: 28px; height: 28px; background: var(--red); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; }
   .topbar-title { font-size: 14px; font-weight: 600; color: var(--text); }
-  .topbar-badge {
-    font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
-    background: rgba(200,60,45,.12); color: var(--red);
-    border: 1px solid rgba(200,60,45,.2); padding: 3px 8px; border-radius: 99px;
-  }
+  .topbar-badge { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; background: rgba(200,60,45,.12); color: var(--red); border: 1px solid rgba(200,60,45,.2); padding: 3px 8px; border-radius: 99px; }
   .topbar-right { display: flex; align-items: center; gap: 16px; }
   .admin-email { font-size: 12px; color: var(--muted); }
-  .btn-logout {
-    background: var(--surface2); border: 1px solid var(--border);
-    color: var(--muted); font-family: var(--font);
-    font-size: 12px; font-weight: 500;
-    padding: 7px 14px; border-radius: 8px; cursor: pointer;
-    transition: border-color .2s, color .2s;
-  }
+  .btn-logout { background: var(--surface2); border: 1px solid var(--border); color: var(--muted); font-family: var(--font); font-size: 12px; font-weight: 500; padding: 7px 14px; border-radius: 8px; cursor: pointer; transition: border-color .2s, color .2s; }
   .btn-logout:hover { border-color: rgba(200,60,45,.3); color: var(--text); }
-  .admin-main {
-    flex: 1; padding: 40px 28px;
-    max-width: 900px; margin: 0 auto; width: 100%;
-    animation: fade-up .5s cubic-bezier(.16,1,.3,1) both;
-  }
-  .admin-welcome { margin-bottom: 32px; }
-  .admin-welcome h1 { font-size: 24px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-  .admin-welcome p { font-size: 14px; color: var(--muted); }
-  .admin-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 32px; }
-  .admin-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px 20px; display: flex; flex-direction: column; gap: 8px; }
-  .admin-card-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; font-weight: 500; }
-  .admin-card-value { font-size: 28px; font-weight: 600; color: var(--text); }
-  .admin-card-sub { font-size: 11px; color: var(--muted); }
-  .admin-notice {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 16px; padding: 24px;
-    display: flex; align-items: flex-start; gap: 14px;
-  }
-  .notice-icon {
-    width: 36px; height: 36px; border-radius: 10px;
-    background: rgba(200,60,45,.1); border: 1px solid rgba(200,60,45,.2);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px; flex-shrink: 0;
-  }
-  .notice-text h3 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-  .notice-text p { font-size: 13px; color: var(--muted); line-height: 1.6; }
 
-  @media (max-width: 500px) {
-    .login-box { padding: 28px 22px; }
+  .admin-main { padding: 32px 28px; max-width: 960px; margin: 0 auto; }
+
+  .page-title { font-size: 22px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .page-sub { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+
+  /* ── REPORTS LIST ── */
+  .reports-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .report-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 20px;
+    cursor: pointer; transition: border-color .2s, transform .2s;
+  }
+  .report-card:hover { border-color: rgba(200,60,45,.3); transform: translateY(-1px); }
+  .report-card.expanded { border-color: rgba(200,60,45,.3); }
+
+  .report-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .report-users { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+  .user-chip { display: flex; align-items: center; gap: 8px; }
+  .user-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--red), #8a2820);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; color: #fff; flex-shrink: 0;
+    overflow: hidden;
+  }
+  .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .user-info strong { display: block; font-size: 13px; font-weight: 600; color: var(--text); }
+  .user-info span { font-size: 11px; color: var(--muted); }
+
+  .arrow { color: var(--muted); font-size: 16px; }
+
+  .report-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+  .report-reason {
+    font-size: 12px; font-weight: 600; letter-spacing: .04em;
+    background: rgba(200,60,45,.1); color: var(--red);
+    border: 1px solid rgba(200,60,45,.2); padding: 3px 10px; border-radius: 99px;
+  }
+  .report-time { font-size: 11px; color: var(--muted); }
+  .report-status {
+    font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 99px;
+  }
+  .report-status.pending { background: rgba(255,180,0,.1); color: #e0a800; border: 1px solid rgba(255,180,0,.2); }
+  .report-status.resolved { background: rgba(50,200,100,.1); color: #32c864; border: 1px solid rgba(50,200,100,.2); }
+
+  /* ── MESSAGES EXPAND ── */
+  .report-messages { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; display: none; }
+  .report-card.expanded .report-messages { display: block; }
+
+  .messages-title { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+  .messages-list { display: flex; flex-direction: column; gap: 8px; max-height: 320px; overflow-y: auto; padding-right: 4px; }
+  .messages-list::-webkit-scrollbar { width: 4px; }
+  .messages-list::-webkit-scrollbar-track { background: transparent; }
+  .messages-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+
+  .msg-item { display: flex; gap: 8px; align-items: flex-start; }
+  .msg-sender { font-size: 11px; font-weight: 600; color: var(--red); white-space: nowrap; flex-shrink: 0; min-width: 80px; }
+  .msg-text { font-size: 13px; color: var(--text); background: var(--surface2); border-radius: 8px; padding: 7px 10px; flex: 1; }
+  .msg-time-small { font-size: 10px; color: var(--muted); white-space: nowrap; flex-shrink: 0; margin-top: 8px; }
+
+  .no-messages { font-size: 13px; color: var(--muted); font-style: italic; }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    text-align: center; padding: 60px 20px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+  }
+  .empty-state .emoji { font-size: 40px; margin-bottom: 16px; }
+  .empty-state h3 { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .empty-state p { font-size: 13px; color: var(--muted); }
+
+  /* ── LOADING ── */
+  .loading { text-align: center; padding: 40px; color: var(--muted); font-size: 14px; }
+
+  @media (max-width: 600px) {
     .admin-topbar { padding: 0 16px; }
     .admin-email { display: none; }
-    .admin-main { padding: 24px 16px; }
+    .admin-main { padding: 20px 16px; }
+    .report-meta { align-items: flex-start; }
   }
 </style>
 </head>
 <body>
 
-<!-- ── LOGIN SCREEN ── -->
+<!-- ── LOGIN ── -->
 <div class="screen" id="screen-login">
   <div class="login-box">
     <div class="login-logo">
@@ -189,9 +205,9 @@
   </div>
 </div>
 
-<!-- ── ADMIN PANEL SCREEN ── -->
+<!-- ── ADMIN PANEL ── -->
 <div class="screen hidden" id="screen-admin">
-  <div class="admin-layout">
+  <div style="width:100%;min-height:100vh;display:flex;flex-direction:column;">
     <div class="admin-topbar">
       <div class="topbar-left">
         <div class="topbar-logo-icon">K</div>
@@ -203,39 +219,12 @@
         <button class="btn-logout" id="btn-logout">Sign Out</button>
       </div>
     </div>
+
     <div class="admin-main">
-      <div class="admin-welcome">
-        <h1>Admin Panel</h1>
-        <p>Welcome back. More features coming soon.</p>
-      </div>
-      <div class="admin-cards">
-        <div class="admin-card">
-          <div class="admin-card-label">Total Users</div>
-          <div class="admin-card-value">—</div>
-          <div class="admin-card-sub">Pending backend</div>
-        </div>
-        <div class="admin-card">
-          <div class="admin-card-label">Active Today</div>
-          <div class="admin-card-value">—</div>
-          <div class="admin-card-sub">Pending backend</div>
-        </div>
-        <div class="admin-card">
-          <div class="admin-card-label">Reports</div>
-          <div class="admin-card-value">—</div>
-          <div class="admin-card-sub">Pending backend</div>
-        </div>
-        <div class="admin-card">
-          <div class="admin-card-label">Messages</div>
-          <div class="admin-card-value">—</div>
-          <div class="admin-card-sub">Pending backend</div>
-        </div>
-      </div>
-      <div class="admin-notice">
-        <div class="notice-icon">🔧</div>
-        <div class="notice-text">
-          <h3>Authenticated successfully</h3>
-          <p>Real authentication is now connected to your backend. User management and moderation features will be added in the next step.</p>
-        </div>
+      <div class="page-title">Reports</div>
+      <div class="page-sub" id="reports-count">Loading reports…</div>
+      <div class="reports-list" id="reports-list">
+        <div class="loading">Fetching reports…</div>
       </div>
     </div>
   </div>
@@ -252,8 +241,10 @@
   const emailInput   = document.getElementById('input-email');
   const passInput    = document.getElementById('input-password');
   const emailDisplay = document.getElementById('admin-email-display');
+  const reportsList  = document.getElementById('reports-list');
+  const reportsCount = document.getElementById('reports-count');
 
-  // ── Verify token on page load ──
+  // ── Verify token on load ──
   (async () => {
     const token = sessionStorage.getItem('kc_admin_token');
     if (!token) return;
@@ -281,23 +272,19 @@
     const email = emailInput.value.trim();
     const pass  = passInput.value;
     errorMsg.classList.remove('show');
-
     if (!email || !pass) {
       errorMsg.textContent = 'Please enter your email and password.';
       errorMsg.classList.add('show');
       return;
     }
-
     btnLogin.disabled = true;
     btnLogin.textContent = 'Signing in…';
-
     try {
       const res = await fetch(`${API}/admin/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password: pass })
       });
-
       if (res.ok) {
         const data = await res.json();
         sessionStorage.setItem('kc_admin_token', data.token);
@@ -310,26 +297,120 @@
       errorMsg.textContent = 'Connection error. Please try again.';
       errorMsg.classList.add('show');
     }
-
     btnLogin.disabled = false;
     btnLogin.textContent = 'Sign In';
   }
 
   // ── Logout ──
-  btnLogout.addEventListener('click', () => {
+  btnLogout.addEventListener('click', logout);
+  function logout() {
     sessionStorage.removeItem('kc_admin_token');
     adminScreen.classList.add('hidden');
     loginScreen.classList.remove('hidden');
     emailInput.value = '';
     passInput.value = '';
-  });
+  }
 
+  // ── Show Admin ──
   function showAdmin(email) {
     emailDisplay.textContent = email;
     loginScreen.classList.add('hidden');
     adminScreen.classList.remove('hidden');
+    loadReports();
+  }
+
+  // ── Load Reports ──
+  async function loadReports() {
+    const token = sessionStorage.getItem('kc_admin_token');
+    try {
+      const res = await fetch(`${API}/admin/reports`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.status === 401) { logout(); return; }
+      if (!res.ok) throw new Error('Failed');
+      const reports = await res.json();
+      renderReports(reports);
+    } catch {
+      reportsList.innerHTML = '<div class="loading">Failed to load reports. Please refresh.</div>';
+    }
+  }
+
+  // ── Render Reports ──
+  function renderReports(reports) {
+    if (reports.length === 0) {
+      reportsCount.textContent = 'No reports yet.';
+      reportsList.innerHTML = `
+        <div class="empty-state">
+          <div class="emoji">✅</div>
+          <h3>No reports</h3>
+          <p>No users have been reported yet.</p>
+        </div>`;
+      return;
+    }
+
+    reportsCount.textContent = `${reports.length} report${reports.length !== 1 ? 's' : ''} total`;
+    reportsList.innerHTML = '';
+
+    reports.forEach(r => {
+      const card = document.createElement('div');
+      card.className = 'report-card';
+
+      const reporterName = r.reporter?.name || 'Unknown';
+      const reportedName = r.reported_user?.name || 'Unknown';
+      const reporterPhoto = r.reporter?.photo || '';
+      const reportedPhoto = r.reported_user?.photo || '';
+      const time = r.created_at ? new Date(r.created_at).toLocaleString() : '—';
+      const status = r.status || 'pending';
+
+      const messagesHTML = r.messages && r.messages.length > 0
+        ? r.messages.map(m => `
+            <div class="msg-item">
+              <div class="msg-sender">${m.sender_id === r.reporter?.id ? reporterName : reportedName}</div>
+              <div class="msg-text">${m.text || '[media]'}</div>
+              <div class="msg-time-small">${m.created_at ? new Date(m.created_at).toLocaleTimeString() : ''}</div>
+            </div>`).join('')
+        : '<div class="no-messages">No messages available.</div>';
+
+      card.innerHTML = `
+        <div class="report-header">
+          <div class="report-users">
+            <div class="user-chip">
+              <div class="user-avatar">
+                ${reporterPhoto ? `<img src="${reporterPhoto}" onerror="this.style.display='none'" />` : ''}
+                ${!reporterPhoto ? reporterName[0]?.toUpperCase() : ''}
+              </div>
+              <div class="user-info">
+                <strong>${reporterName}</strong>
+                <span>Reporter</span>
+              </div>
+            </div>
+            <div class="arrow">→</div>
+            <div class="user-chip">
+              <div class="user-avatar" style="background:linear-gradient(135deg,#2d6b7a,#3da0b5)">
+                ${reportedPhoto ? `<img src="${reportedPhoto}" onerror="this.style.display='none'" />` : ''}
+                ${!reportedPhoto ? reportedName[0]?.toUpperCase() : ''}
+              </div>
+              <div class="user-info">
+                <strong>${reportedName}</strong>
+                <span>Reported</span>
+              </div>
+            </div>
+          </div>
+          <div class="report-meta">
+            <div class="report-reason">${r.reason || 'No reason'}</div>
+            <div class="report-time">${time}</div>
+            <div class="report-status ${status}">${status}</div>
+          </div>
+        </div>
+        <div class="report-messages">
+          <div class="messages-title">Last ${r.messages?.length || 0} messages</div>
+          <div class="messages-list">${messagesHTML}</div>
+        </div>`;
+
+      card.addEventListener('click', () => card.classList.toggle('expanded'));
+      reportsList.appendChild(card);
+    });
   }
 </script>
-
 </body>
 </html>
