@@ -408,16 +408,32 @@
           <div class="messages-list">${messagesHTML}</div>
         </div>
         <div class="report-actions" style="display:flex;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
-          <button class="btn-ban" data-uid="${r.reported_user?.id}" data-rid="${r.id}" style="background:#c83c2d;color:#fff;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;">🚫 Ban User</button>
+          ${status === 'banned' 
+            ? `<button class="btn-unban" data-uid="${r.reported_user?.id}" style="background:#e0a800;color:#fff;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;">✅ Unban User</button>`
+            : `<button class="btn-ban" data-uid="${r.reported_user?.id}" data-rid="${r.id}" style="background:#c83c2d;color:#fff;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;">🚫 Ban User</button>`
+          }
           <button class="btn-resolve" data-rid="${r.id}" style="background:#1a7a4a;color:#fff;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;">✅ Mark Resolved</button>
         </div>`;
 
-      card.addEventListener('click', (e) => {
-        if (e.target.closest('.btn-ban') || e.target.closest('.btn-resolve')) return;
+    card.addEventListener('click', (e) => {
+        if (e.target.closest('.btn-ban') || e.target.closest('.btn-resolve') || e.target.closest('.btn-unban')) return;
         card.classList.toggle('expanded');
       });
 
-      card.querySelector('.btn-ban').addEventListener('click', async (e) => {
+      const unbanBtn = card.querySelector('.btn-unban');
+      if (unbanBtn) {
+        unbanBtn.addEventListener('click', async (e) => {
+          e.stopPropagation();
+          const uid = e.target.dataset.uid;
+          if (!uid) return alert('No user ID found.');
+          if (!confirm('Unban this user?')) return;
+          await fetch(`${API}/admin/users/${uid}/unban`, { method: 'PATCH', headers: { Authorization: `Bearer ${sessionStorage.getItem('kc_admin_token')}` } });
+          loadReports();
+        });
+      }
+
+      const banBtn = card.querySelector('.btn-ban');
+      if (banBtn) banBtn.addEventListener('click', async (e) => {
         e.stopPropagation();
         const uid = e.target.dataset.uid;
         const rid = e.target.dataset.rid;
