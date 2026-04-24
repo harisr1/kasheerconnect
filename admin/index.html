@@ -141,7 +141,8 @@
     padding: 2px 8px; border-radius: 99px;
   }
   .report-status.pending { background: rgba(255,180,0,.1); color: #e0a800; border: 1px solid rgba(255,180,0,.2); }
-  .report-status.resolved { background: rgba(50,200,100,.1); color: #32c864; border: 1px solid rgba(50,200,100,.2); }
+.report-status.resolved { background: rgba(50,200,100,.1); color: #32c864; border: 1px solid rgba(50,200,100,.2); }
+  .report-status.banned { background: rgba(200,60,45,.1); color: #c83c2d; border: 1px solid rgba(200,60,45,.2); }
 
   /* ── MESSAGES EXPAND ── */
   .report-messages { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 16px; display: none; }
@@ -423,7 +424,7 @@
         if (!uid) return alert('No user ID found.');
         if (!confirm('Ban this user?')) return;
 await fetch(`${API}/admin/users/${uid}/ban`, { method: 'PATCH', headers: { Authorization: `Bearer ${sessionStorage.getItem('kc_admin_token')}` } });
-        await fetch(`${API}/admin/reports/${rid}/resolve`, { method: 'PATCH', headers: { Authorization: `Bearer ${sessionStorage.getItem('kc_admin_token')}` } });
+        await fetch(`${API}/admin/reports/${rid}/ban-status`, { method: 'PATCH', headers: { Authorization: `Bearer ${sessionStorage.getItem('kc_admin_token')}` } });
         loadReports();
       });
 
