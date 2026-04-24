@@ -402,12 +402,38 @@
             <div class="report-status ${status}">${status}</div>
           </div>
         </div>
-        <div class="report-messages">
+       <div class="report-messages">
           <div class="messages-title">Last ${r.messages?.length || 0} messages</div>
           <div class="messages-list">${messagesHTML}</div>
+        </div>
+        <div class="report-actions" style="display:flex;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+          <button class="btn-ban" data-uid="${r.reported_user?.id}" data-rid="${r.id}" style="background:#c83c2d;color:#fff;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;">🚫 Ban User</button>
+          <button class="btn-resolve" data-rid="${r.id}" style="background:#1a7a4a;color:#fff;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;">✅ Mark Resolved</button>
         </div>`;
 
-      card.addEventListener('click', () => card.classList.toggle('expanded'));
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.btn-ban') || e.target.closest('.btn-resolve')) return;
+        card.classList.toggle('expanded');
+      });
+
+      card.querySelector('.btn-ban').addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const uid = e.target.dataset.uid;
+        const rid = e.target.dataset.rid;
+        if (!uid) return alert('No user ID found.');
+        if (!confirm('Ban this user?')) return;
+        await fetch(`${API}/admin/users/${uid}/ban`, { method: 'PATCH', headers: { Authorization: `Bearer ${sessionStorage.getItem('admin_token')}` } });
+        await fetch(`${API}/admin/reports/${rid}/resolve`, { method: 'PATCH', headers: { Authorization: `Bearer ${sessionStorage.getItem('admin_token')}` } });
+        loadReports();
+      });
+
+      card.querySelector('.btn-resolve').addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const rid = e.target.dataset.rid;
+        await fetch(`${API}/admin/reports/${rid}/resolve`, { method: 'PATCH', headers: { Authorization: `Bearer ${sessionStorage.getItem('admin_token')}` } });
+        loadReports();
+      });
+
       reportsList.appendChild(card);
     });
   }
