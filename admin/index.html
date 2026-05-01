@@ -504,7 +504,7 @@ const deletePostBtn = card.querySelector('.btn-delete-post');
       if (banBtn) banBtn.addEventListener('click', async (e) => {
         e.stopPropagation();
         const uid = e.target.dataset.uid;
-        const rid = e.target.dataset.rid;
+       const rid = card.querySelector('.btn-resolve').dataset.rid;
         if (!uid) return alert('No user ID found.');
         if (!confirm('Ban this user?')) return;
 await fetch(`${API}/admin/users/${uid}/ban`, { method: 'PATCH', headers: { Authorization: `Bearer ${sessionStorage.getItem('kc_admin_token')}` } });
