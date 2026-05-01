@@ -400,20 +400,30 @@ const time = rawTime ? new Date(rawTime).toLocaleString('en-IN', { timeZone: 'As
 
      const isPostReport = r.type === 'post_report';
 
+     const reportersHTML = r.reporters && r.reporters.length > 0
+        ? `<div style="margin-top:12px;padding:12px;background:var(--card);border-radius:10px;border:1px solid var(--border);">
+            <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">All Reporters (${r.reporters.length})</div>
+            ${r.reporters.map(rep => `
+              <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;">
+                <span style="color:var(--text);font-weight:600;">@${rep.username}</span>
+                <span style="color:var(--muted);">${rep.reason || 'No reason'}</span>
+              </div>`).join('')}
+          </div>` : '';
+
       const contentHTML = isPostReport
         ? `<div style="margin-top:12px;padding:12px;background:var(--card);border-radius:10px;border:1px solid var(--border);">
             <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">POST CONTENT</div>
             ${r.post_text ? `<div style="font-size:14px;color:var(--text);margin-bottom:8px;">${r.post_text}</div>` : ''}
             ${r.post_image ? `<img src="${r.post_image}" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;" />` : ''}
-          </div>`
+          </div>${reportersHTML}`
         : r.messages && r.messages.length > 0
           ? r.messages.map(m => `
               <div class="msg-item">
                 <div class="msg-sender">${m.sender_id === r.reporter?.id ? reporterName : reportedName}</div>
                 <div class="msg-text">${m.text || '[media]'}</div>
                 <div class="msg-time-small">${m.created_at ? new Date(m.created_at).toLocaleTimeString() : ''}</div>
-              </div>`).join('')
-          : '<div class="no-messages">No messages available.</div>';
+              </div>`).join('') + reportersHTML
+          : '<div class="no-messages">No messages available.</div>' + reportersHTML;
 
       const messagesHTML = contentHTML;
 
