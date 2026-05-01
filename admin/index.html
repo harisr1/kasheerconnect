@@ -360,7 +360,7 @@
       const reportedName = r.reported_user?.name || 'Unknown';
       const reporterPhoto = r.reporter?.photo || '';
       const reportedPhoto = r.reported_user?.photo || '';
-      const time = r.created_at ? new Date(r.created_at).toLocaleString() : '—';
+const time = r.created_at ? new Date(r.created_at).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) : '—';
       const status = r.status || 'pending';
 
      const isPostReport = r.type === 'post_report';
@@ -435,14 +435,21 @@ card.addEventListener('click', (e) => {
       });
 const deletePostBtn = card.querySelector('.btn-delete-post');
       if (deletePostBtn) {
-        deletePostBtn.addEventListener('click', async (e) => {
+       deletePostBtn.addEventListener('click', async (e) => {
           e.stopPropagation();
-          const pid = e.target.dataset.pid;
-          const rid = e.target.dataset.rid;
+          const pid = deletePostBtn.dataset.pid;
+          const rid = deletePostBtn.dataset.rid;
+          if (!pid) return alert('No post ID found.');
           if (!confirm('Delete this post?')) return;
-          await fetch(`${API}/posts/${pid}`, { method: 'DELETE', headers: { Authorization: `Bearer ${sessionStorage.getItem('kc_admin_token')}` } });
-          await fetch(`${API}/admin/reports/${rid}/resolve`, { method: 'PATCH', headers: { Authorization: `Bearer ${sessionStorage.getItem('kc_admin_token')}` } });
-          loadReports();
+          try {
+            const res = await fetch(`${API}/posts/${pid}`, { method: 'DELETE', headers: { Authorization: `Bearer ${sessionStorage.getItem('kc_admin_token')}` } });
+            console.log('Delete post response:', res.status);
+            await fetch(`${API}/admin/reports/${rid}/resolve`, { method: 'PATCH', headers: { Authorization: `Bearer ${sessionStorage.getItem('kc_admin_token')}` } });
+            loadReports();
+          } catch (err) {
+            console.error('Delete post error:', err);
+            alert('Failed to delete post.');
+          }
         });
       }
       const unbanBtn = card.querySelector('.btn-unban');
