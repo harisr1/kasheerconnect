@@ -522,11 +522,17 @@ await fetch(`${API}/admin/users/${uid}/ban`, { method: 'PATCH', headers: { Autho
         loadReports();
       });
 
-      card.querySelector('.btn-resolve').addEventListener('click', async (e) => {
+     card.querySelector('.btn-resolve').addEventListener('click', async (e) => {
         e.stopPropagation();
-        const rid = e.target.dataset.rid;
-await fetch(`${API}/admin/reports/${rid}/resolve`, { method: 'PATCH', headers: { Authorization: `Bearer ${sessionStorage.getItem('kc_admin_token')}` } });
-       loadReports();
+        const rid = card.querySelector('.btn-resolve').dataset.rid;
+        if (!rid) return console.error('No report ID found');
+        try {
+          const res = await fetch(`${API}/admin/reports/${rid}/resolve`, { method: 'PATCH', headers: { Authorization: `Bearer ${sessionStorage.getItem('kc_admin_token')}` } });
+          console.log('Resolve response:', res.status);
+          loadReports();
+        } catch (err) {
+          console.error('Resolve error:', err);
+        }
       });
 
       reportsList.appendChild(card);
