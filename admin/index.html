@@ -363,14 +363,24 @@
       const time = r.created_at ? new Date(r.created_at).toLocaleString() : '—';
       const status = r.status || 'pending';
 
-      const messagesHTML = r.messages && r.messages.length > 0
-        ? r.messages.map(m => `
-            <div class="msg-item">
-              <div class="msg-sender">${m.sender_id === r.reporter?.id ? reporterName : reportedName}</div>
-              <div class="msg-text">${m.text || '[media]'}</div>
-              <div class="msg-time-small">${m.created_at ? new Date(m.created_at).toLocaleTimeString() : ''}</div>
-            </div>`).join('')
-        : '<div class="no-messages">No messages available.</div>';
+     const isPostReport = r.type === 'post_report';
+
+      const contentHTML = isPostReport
+        ? `<div style="margin-top:12px;padding:12px;background:var(--card);border-radius:10px;border:1px solid var(--border);">
+            <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">POST CONTENT</div>
+            ${r.post_text ? `<div style="font-size:14px;color:var(--text);margin-bottom:8px;">${r.post_text}</div>` : ''}
+            ${r.post_image ? `<img src="${r.post_image}" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;" />` : ''}
+          </div>`
+        : r.messages && r.messages.length > 0
+          ? r.messages.map(m => `
+              <div class="msg-item">
+                <div class="msg-sender">${m.sender_id === r.reporter?.id ? reporterName : reportedName}</div>
+                <div class="msg-text">${m.text || '[media]'}</div>
+                <div class="msg-time-small">${m.created_at ? new Date(m.created_at).toLocaleTimeString() : ''}</div>
+              </div>`).join('')
+          : '<div class="no-messages">No messages available.</div>';
+
+      const messagesHTML = contentHTML;
 
       card.innerHTML = `
         <div class="report-header">
@@ -403,23 +413,38 @@
             <div class="report-status ${status}">${status}</div>
           </div>
         </div>
-       <div class="report-messages">
-          <div class="messages-title">Last ${r.messages?.length || 0} messages</div>
+     <div class="report-messages">
+          <div class="messages-title">${isPostReport ? 'Post Content' : `Last ${r.messages?.length || 0} messages`}</div>
           <div class="messages-list">${messagesHTML}</div>
         </div>
-        <div class="report-actions" style="display:flex;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+        <div class="report-actions" style="display:flex;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:6px;margin-right:auto;">
+            <span style="font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;background:${isPostReport ? '#2d4a7a' : '#4a2d7a'};color:#fff;">${isPostReport ? 'POST REPORT' : 'USER REPORT'}</span>
+          </div>
+          ${isPostReport && r.post_id ? `<button class="btn-delete-post" data-pid="${r.post_id}" data-rid="${r.id}" style="background:#7a2d2d;color:#fff;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;">🗑 Delete Post</button>` : ''}
           ${status === 'banned' 
             ? `<button class="btn-unban" data-uid="${r.reported_user?.id}" style="background:#e0a800;color:#fff;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;">✅ Unban User</button>`
             : `<button class="btn-ban" data-uid="${r.reported_user?.id}" data-rid="${r.id}" style="background:#c83c2d;color:#fff;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;">🚫 Ban User</button>`
           }
           <button class="btn-resolve" data-rid="${r.id}" style="background:#1a7a4a;color:#fff;border:none;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;">✅ Mark Resolved</button>
-        </div>`;
-
-    card.addEventListener('click', (e) => {
-        if (e.target.closest('.btn-ban') || e.target.closest('.btn-resolve') || e.target.closest('.btn-unban')) return;
+       </div>
+      `;
+card.addEventListener('click', (e) => {
+        if (e.target.closest('.btn-ban') || e.target.closest('.btn-resolve') || e.target.closest('.btn-unban') || e.target.closest('.btn-delete-post')) return;
         card.classList.toggle('expanded');
       });
-
+const deletePostBtn = card.querySelector('.btn-delete-post');
+      if (deletePostBtn) {
+        deletePostBtn.addEventListener('click', async (e) => {
+          e.stopPropagation();
+          const pid = e.target.dataset.pid;
+          const rid = e.target.dataset.rid;
+          if (!confirm('Delete this post?')) return;
+          await fetch(`${API}/posts/${pid}`, { method: 'DELETE', headers: { Authorization: `Bearer ${sessionStorage.getItem('kc_admin_token')}` } });
+          await fetch(`${API}/admin/reports/${rid}/resolve`, { method: 'PATCH', headers: { Authorization: `Bearer ${sessionStorage.getItem('kc_admin_token')}` } });
+          loadReports();
+        });
+      }
       const unbanBtn = card.querySelector('.btn-unban');
       if (unbanBtn) {
         unbanBtn.addEventListener('click', async (e) => {
@@ -448,7 +473,7 @@ await fetch(`${API}/admin/users/${uid}/ban`, { method: 'PATCH', headers: { Autho
         e.stopPropagation();
         const rid = e.target.dataset.rid;
 await fetch(`${API}/admin/reports/${rid}/resolve`, { method: 'PATCH', headers: { Authorization: `Bearer ${sessionStorage.getItem('kc_admin_token')}` } });
-        loadReports();
+       loadReports();
       });
 
       reportsList.appendChild(card);
