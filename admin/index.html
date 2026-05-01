@@ -224,6 +224,22 @@
     <div class="admin-main">
       <div class="page-title">Reports</div>
       <div class="page-sub" id="reports-count">Loading reports…</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin:14px 0;">
+        <select id="filter-status" style="background:#1e1e1e;color:#fff;border:1px solid #333;padding:7px 12px;border-radius:8px;font-size:13px;">
+          <option value="all">All Status</option>
+          <option value="pending">Pending</option>
+          <option value="resolved">Resolved</option>
+        </select>
+        <select id="filter-type" style="background:#1e1e1e;color:#fff;border:1px solid #333;padding:7px 12px;border-radius:8px;font-size:13px;">
+          <option value="all">All Types</option>
+          <option value="post_report">Post Reports</option>
+          <option value="user_report">User Reports</option>
+        </select>
+        <select id="filter-sort" style="background:#1e1e1e;color:#fff;border:1px solid #333;padding:7px 12px;border-radius:8px;font-size:13px;">
+          <option value="reports">Sort: Most Reports</option>
+          <option value="time">Sort: Latest First</option>
+        </select>
+      </div>
       <div class="reports-list" id="reports-list">
         <div class="loading">Fetching reports…</div>
       </div>
@@ -330,13 +346,32 @@
       if (res.status === 401) { logout(); return; }
       if (!res.ok) throw new Error('Failed');
       const reports = await res.json();
-      renderReports(reports);
+     allReports = reports;
+      applyFilters();
     } catch {
       reportsList.innerHTML = '<div class="loading">Failed to load reports. Please refresh.</div>';
     }
   }
 
   // ── Render Reports ──
+  let allReports = [];
+
+  document.addEventListener('change', (e) => {
+    if (['filter-status','filter-type','filter-sort'].includes(e.target.id)) applyFilters();
+  });
+
+  function applyFilters() {
+    const status = document.getElementById('filter-status').value;
+    const type = document.getElementById('filter-type').value;
+    const sort = document.getElementById('filter-sort').value;
+    let filtered = [...allReports];
+    if (status !== 'all') filtered = filtered.filter(r => r.status === status);
+    if (type !== 'all') filtered = filtered.filter(r => r.type === type);
+    if (sort === 'reports') filtered.sort((a, b) => (b.total_reports || 1) - (a.total_reports || 1));
+    if (sort === 'time') filtered.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    renderReports(filtered);
+  }
+
   function renderReports(reports) {
     if (reports.length === 0) {
       reportsCount.textContent = 'No reports yet.';
