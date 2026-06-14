@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Community Guidelines – Kasheer Connect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --red: #C83C2D; --red-glow: #e04b3a;
+    --bg: #0d0d0f; --surface: #141417; --surface2: #1c1c22;
+    --border: rgba(255,255,255,0.07); --text: #f0ede8;
+    --muted: #9e9a94; --cream: #f5ede0;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', sans-serif;
+    --r: 18px; --r-lg: 28px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 16px; line-height: 1.65; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.025; pointer-events: none; z-index: 0;
+  }
+  .container { max-width: 800px; margin: 0 auto; padding: 0 22px; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 0; background: rgba(13,13,15,.7); backdrop-filter: blur(18px); border-bottom: 1px solid var(--border); }
+  nav .inner { max-width: 1100px; margin: 0 auto; padding: 0 22px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-family: var(--font-display); font-size: 20px; font-weight: 900; color: var(--cream); }
+  .nav-logo span { color: var(--red); }
+  .nav-cta { background: var(--red); color: #fff; font-size: 13px; font-weight: 600; padding: 9px 20px; border-radius: 99px; }
+  .nav-cta:hover { background: var(--red-glow); }
+  .page-wrap { padding: 120px 0 80px; position: relative; z-index: 1; }
+  .page-header { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+  .page-tag { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--red); border: 1px solid rgba(200,60,45,.3); padding: 5px 14px; border-radius: 99px; background: rgba(200,60,45,.07); margin-bottom: 20px; }
+  .page-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); display: block; animation: pulse-dot 2s infinite; }
+  @keyframes pulse-dot { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.4; transform:scale(.7); } }
+  .page-title { font-family: var(--font-display); font-size: clamp(32px, 6vw, 56px); font-weight: 900; color: var(--cream); line-height: 1.1; margin-bottom: 12px; }
+  .page-updated { font-size: 13px; color: var(--muted); }
+  .intro-card { background: rgba(200,60,45,.08); border: 1px solid rgba(200,60,45,.2); border-left: 3px solid var(--red); border-radius: var(--r); padding: 20px 24px; margin-bottom: 24px; font-size: 14px; color: var(--muted); line-height: 1.7; }
+  .warning-banner { background: rgba(245,158,11,.08); border: 1px solid rgba(245,158,11,.2); border-radius: var(--r); padding: 16px 20px; margin-bottom: 40px; display: flex; gap: 12px; align-items: flex-start; font-size: 13px; color: var(--muted); line-height: 1.7; }
+  .warning-icon { font-size: 16px; margin-top: 1px; flex-shrink: 0; }
+  .section { margin-bottom: 40px; }
+  .section-title { display: flex; align-items: center; gap: 12px; font-size: 17px; font-weight: 600; color: var(--cream); margin-bottom: 14px; }
+  .section-num { width: 28px; height: 28px; border-radius: 8px; background: rgba(200,60,45,.12); border: 1px solid rgba(200,60,45,.2); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--red); flex-shrink: 0; }
+  .section-body { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 10px; }
+  ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  ul li { display: flex; gap: 10px; font-size: 14px; color: var(--muted); line-height: 1.7; }
+  ul li::before { content: '•'; color: var(--red); flex-shrink: 0; margin-top: 1px; }
+  .divider { height: 1px; background: var(--border); margin: 32px 0; }
+  .contact-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 20px 24px; margin-top: 12px; }
+  .contact-card strong { display: block; font-size: 14px; color: var(--cream); margin-bottom: 6px; }
+  .contact-card a { color: var(--red); font-size: 14px; }
+  .contact-card span { display: block; font-size: 13px; color: var(--muted); margin-top: 4px; }
+  footer { background: var(--bg); border-top: 1px solid var(--border); padding: 40px 0; position: relative; z-index: 1; }
+  .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+  .footer-logo { font-family: var(--font-display); font-size: 22px; font-weight: 900; color: var(--cream); }
+  .footer-logo span { color: var(--red); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 13px; color: var(--muted); transition: color .2s; }
+  .footer-links a:hover { color: var(--text); }
+  .footer-copy { font-size: 12px; color: rgba(158,154,148,.5); }
+  .footer-divider { width: 40px; height: 1px; background: var(--border); }
+</style>
+</head>
+<body>
+<nav>
+  <div class="inner">
+    <a href="/" class="nav-logo">Kasheer<span>.</span></a>
+    <a href="/#contact" class="nav-cta">Join Early</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="container">
+    <div class="page-header">
+      <div class="page-tag">Community</div>
+      <h1 class="page-title">Community Guidelines</h1>
+      <p class="page-updated">Last Updated: June 2026 &nbsp;·&nbsp; kasheerconnect.in</p>
+    </div>
+
+    <div class="intro-card">
+      Kasheer Connect exists to help people connect, communicate, and build meaningful relationships in a safe and respectful environment. These guidelines apply to all content, messages, stories, profiles, comments, calls, and interactions on the platform.
+    </div>
+
+    <div class="warning-banner">
+      <div class="warning-icon">⚠️</div>
+      <div>Violations may result in content removal, feature restrictions, temporary suspension, permanent bans, or account deletion.</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">1</div>Be Respectful</div>
+      <p class="section-body">Treat other users with respect. Healthy disagreement is allowed. Personal attacks are not. Do not:</p>
+      <ul><li>Harass or intimidate others</li><li>Bully individuals or groups</li><li>Use targeted insults or abusive language</li><li>Encourage others to harass users</li></ul>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">2</div>No Hate Speech</div>
+      <p class="section-body">Content that attacks, promotes hatred against, or dehumanizes people based on race, ethnicity, nationality, religion, disability, gender, or similar characteristics is prohibited. This includes:</p>
+      <ul><li>Slurs</li><li>Calls for exclusion or discrimination</li><li>Promotion of hateful ideologies</li><li>Content encouraging violence against groups</li></ul>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">3</div>No Threats or Violence</div>
+      <p class="section-body">Do not post, share, or send content that:</p>
+      <ul><li>Threatens physical harm</li><li>Encourages violence</li><li>Glorifies violent acts</li><li>Promotes criminal activity</li></ul>
+      <p class="section-body" style="margin-top:10px">Credible threats may result in immediate account suspension.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">4</div>No Sexual Exploitation</div>
+      <p class="section-body">Do not use Kasheer Connect to:</p>
+      <ul><li>Exploit, abuse, or manipulate others sexually</li><li>Share non-consensual intimate content</li><li>Request or distribute sexual content involving minors</li><li>Engage in sexual extortion or blackmail</li></ul>
+      <p class="section-body" style="margin-top:10px">Any content involving minors may be reported to appropriate authorities where required by law.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">5</div>No Spam or Fake Engagement</div>
+      <p class="section-body">Do not:</p>
+      <ul><li>Send repetitive unwanted messages</li><li>Mass message users</li><li>Create fake accounts</li><li>Artificially inflate likes, follows, comments, or engagement</li><li>Use automated bots without authorization</li></ul>
+      <p class="section-body" style="margin-top:10px">Spam accounts may be removed without notice.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">6</div>Authentic Identity</div>
+      <p class="section-body">Users should represent themselves honestly. Do not:</p>
+      <ul><li>Impersonate another person</li><li>Pretend to represent an organization without authorization</li><li>Mislead users about your identity</li></ul>
+      <p class="section-body" style="margin-top:10px">Parody accounts must be clearly identified as parody.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">7</div>Respect Privacy</div>
+      <p class="section-body">Do not share:</p>
+      <ul><li>Personal contact information without permission</li><li>Private conversations without consent</li><li>Government identification documents</li><li>Financial information</li><li>Sensitive personal information belonging to others</li></ul>
+      <p class="section-body" style="margin-top:10px">Doxxing and privacy violations are prohibited.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">8</div>Illegal Activities</div>
+      <p class="section-body">Do not use Kasheer Connect to:</p>
+      <ul><li>Promote illegal activities</li><li>Sell illegal goods or services</li><li>Facilitate fraud or scams</li><li>Distribute malware or malicious software</li><li>Coordinate criminal conduct</li></ul>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">9</div>Safe Communication</div>
+      <p class="section-body">Direct messages, voice notes, voice calls, and video calls must follow these Guidelines. Users must not:</p>
+      <ul><li>Harass others through private communications</li><li>Send unwanted explicit content</li><li>Use calls or messages for abuse or threats</li></ul>
+      <p class="section-body" style="margin-top:10px">Blocking features should be used when unwanted contact occurs.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">10</div>Content Standards</div>
+      <p class="section-body">You are responsible for all content you post, including posts, stories, comments, replies, messages, profile information, images, videos, and voice content. Content may be removed if it:</p>
+      <ul><li>Violates these Guidelines</li><li>Creates safety risks</li><li>Facilitates abuse or fraud</li><li>Interferes with platform integrity</li></ul>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">11</div>Reporting Violations</div>
+      <p class="section-body">Users may report posts and user accounts. Reports are reviewed by moderators and administrators. Submitting false or abusive reports may result in moderation action.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">12</div>Enforcement Actions</div>
+      <p class="section-body">Depending on severity, Kasheer Connect may:</p>
+      <ul><li>Remove content</li><li>Limit account features</li><li>Issue warnings</li><li>Temporarily suspend accounts</li><li>Permanently ban accounts</li><li>Remove access to platform features</li></ul>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">13</div>Account Suspension and Bans</div>
+      <p class="section-body">Accounts may be suspended or permanently banned for:</p>
+      <ul><li>Serious violations of these Guidelines</li><li>Repeated policy violations</li><li>Fraudulent activity</li><li>Spam activity</li><li>Abuse of other users</li><li>Attempts to bypass platform security or moderation systems</li></ul>
+      <p class="section-body" style="margin-top:10px">Ban evasion may result in additional enforcement action.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">14</div>Appeals</div>
+      <p class="section-body">If you believe moderation action was taken incorrectly, contact us at <a href="mailto:support@kasheerconnect.in" style="color:var(--red)">support@kasheerconnect.in</a>. Submission of an appeal does not guarantee reversal of a moderation decision.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">15</div>Changes to These Guidelines</div>
+      <p class="section-body">Kasheer Connect may update these Community Guidelines periodically. Continued use of the platform after updates become effective constitutes acceptance of the revised Guidelines.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">16</div>Contact</div>
+      <div class="contact-card">
+        <strong>Kasheer Connect</strong>
+        <a href="mailto:support@kasheerconnect.in">support@kasheerconnect.in</a>
+        <span>kasheerconnect.in</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="container" style="max-width:1100px">
+    <div class="footer-inner">
+      <div class="footer-logo">Kasheer<span>Connect</span></div>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/community.html">Guidelines</a>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-copy">© 2026 Kasheer Connect. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

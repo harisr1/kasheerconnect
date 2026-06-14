@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Terms of Service – Kasheer Connect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --red: #C83C2D; --red-glow: #e04b3a;
+    --bg: #0d0d0f; --surface: #141417; --surface2: #1c1c22;
+    --border: rgba(255,255,255,0.07); --text: #f0ede8;
+    --muted: #9e9a94; --cream: #f5ede0;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', sans-serif;
+    --r: 18px; --r-lg: 28px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 16px; line-height: 1.65; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.025; pointer-events: none; z-index: 0;
+  }
+  .container { max-width: 800px; margin: 0 auto; padding: 0 22px; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 0; background: rgba(13,13,15,.7); backdrop-filter: blur(18px); border-bottom: 1px solid var(--border); }
+  nav .inner { max-width: 1100px; margin: 0 auto; padding: 0 22px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-family: var(--font-display); font-size: 20px; font-weight: 900; color: var(--cream); }
+  .nav-logo span { color: var(--red); }
+  .nav-cta { background: var(--red); color: #fff; font-size: 13px; font-weight: 600; padding: 9px 20px; border-radius: 99px; transition: background .2s; }
+  .nav-cta:hover { background: var(--red-glow); }
+  .page-wrap { padding: 120px 0 80px; position: relative; z-index: 1; }
+  .page-header { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+  .page-tag { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--red); border: 1px solid rgba(200,60,45,.3); padding: 5px 14px; border-radius: 99px; background: rgba(200,60,45,.07); margin-bottom: 20px; }
+  .page-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); display: block; animation: pulse-dot 2s infinite; }
+  @keyframes pulse-dot { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.4; transform:scale(.7); } }
+  .page-title { font-family: var(--font-display); font-size: clamp(32px, 6vw, 56px); font-weight: 900; color: var(--cream); line-height: 1.1; margin-bottom: 12px; }
+  .page-updated { font-size: 13px; color: var(--muted); }
+  .intro-card { background: rgba(200,60,45,.08); border: 1px solid rgba(200,60,45,.2); border-left: 3px solid var(--red); border-radius: var(--r); padding: 20px 24px; margin-bottom: 48px; font-size: 14px; color: var(--muted); line-height: 1.7; }
+  .section { margin-bottom: 40px; }
+  .section-title { display: flex; align-items: center; gap: 12px; font-size: 17px; font-weight: 600; color: var(--cream); margin-bottom: 14px; }
+  .section-num { width: 28px; height: 28px; border-radius: 8px; background: rgba(200,60,45,.12); border: 1px solid rgba(200,60,45,.2); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--red); flex-shrink: 0; }
+  .section-body { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 10px; }
+  ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  ul li { display: flex; gap: 10px; font-size: 14px; color: var(--muted); line-height: 1.7; }
+  ul li::before { content: '•'; color: var(--red); flex-shrink: 0; margin-top: 1px; }
+  .divider { height: 1px; background: var(--border); margin: 32px 0; }
+  .contact-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 20px 24px; margin-top: 12px; }
+  .contact-card strong { display: block; font-size: 14px; color: var(--cream); margin-bottom: 6px; }
+  .contact-card a { color: var(--red); font-size: 14px; }
+  .contact-card span { display: block; font-size: 13px; color: var(--muted); margin-top: 4px; }
+  footer { background: var(--bg); border-top: 1px solid var(--border); padding: 40px 0; position: relative; z-index: 1; }
+  .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+  .footer-logo { font-family: var(--font-display); font-size: 22px; font-weight: 900; color: var(--cream); }
+  .footer-logo span { color: var(--red); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 13px; color: var(--muted); transition: color .2s; }
+  .footer-links a:hover { color: var(--text); }
+  .footer-copy { font-size: 12px; color: rgba(158,154,148,.5); }
+  .footer-divider { width: 40px; height: 1px; background: var(--border); }
+</style>
+</head>
+<body>
+<nav>
+  <div class="inner">
+    <a href="/" class="nav-logo">Kasheer<span>.</span></a>
+    <a href="/#contact" class="nav-cta">Join Early</a>
+  </div>
+</nav>
+<div class="page-wrap">
+  <div class="container">
+    <div class="page-header">
+      <div class="page-tag">Legal</div>
+      <h1 class="page-title">Terms of Service</h1>
+      <p class="page-updated">Last Updated: June 2026 &nbsp;·&nbsp; kasheerconnect.in</p>
+    </div>
+    <div class="intro-card">
+      These Terms of Service govern your access to and use of the Kasheer Connect mobile application, website, and related services. By creating an account or using Kasheer Connect, you agree to these Terms. If you do not agree, do not use the Services.
+    </div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">1</div>Eligibility</div>
+      <p class="section-body">You must be at least 18 years old to create an account or use Kasheer Connect. By using the Services, you represent and warrant that:</p>
+      <ul><li>You are at least 18 years old</li><li>The information you provide is accurate and complete</li><li>You have the legal capacity to enter into these Terms</li></ul>
+      <p class="section-body" style="margin-top:10px">We reserve the right to suspend or remove accounts that violate these requirements.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">2</div>Account Registration</div>
+      <p class="section-body">You are responsible for:</p>
+      <ul><li>Maintaining the confidentiality of your login credentials</li><li>All activity that occurs under your account</li><li>Keeping your account information accurate and up to date</li></ul>
+      <p class="section-body" style="margin-top:10px">You may not:</p>
+      <ul><li>Create accounts using false information</li><li>Impersonate another person or organization</li><li>Transfer or sell your account to another person</li></ul>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">3</div>Kashmir Eligibility Verification</div>
+      <p class="section-body">Kasheer Connect may use location verification and invite-based access systems to determine eligibility for registration. Attempting to bypass location verification, invite systems, security controls, or account restrictions may result in account suspension or permanent removal.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">4</div>User Content</div>
+      <p class="section-body">You retain ownership of the content you create and upload. By posting content on Kasheer Connect, you grant us a non-exclusive, worldwide, royalty-free license to:</p>
+      <ul><li>Host content</li><li>Store content</li><li>Display content within the Services</li><li>Distribute content to other users through platform features</li></ul>
+      <p class="section-body" style="margin-top:10px">This license exists only for operating and improving the Services. You remain responsible for the content you publish.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">5</div>Acceptable Use</div>
+      <p class="section-body">You agree not to:</p>
+      <ul>
+        <li>Violate any applicable law or regulation</li><li>Harass, threaten, bully, or intimidate others</li>
+        <li>Share content promoting violence or criminal activity</li><li>Upload malicious software, viruses, or harmful code</li>
+        <li>Attempt unauthorized access to systems or accounts</li><li>Interfere with platform operations</li>
+        <li>Use automated bots without permission</li><li>Circumvent security measures or moderation systems</li>
+        <li>Create fake accounts or engage in spam</li>
+      </ul>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">6</div>Community Standards</div>
+      <p class="section-body">Users must follow the Kasheer Connect Community Guidelines. Violations may result in:</p>
+      <ul><li>Content removal</li><li>Feature restrictions</li><li>Temporary suspension</li><li>Permanent account termination</li></ul>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">7</div>Messaging, Calls, and Communications</div>
+      <p class="section-body">Users are solely responsible for communications they send through the platform. Kasheer Connect does not guarantee delivery, availability, or uninterrupted operation of messaging, voice, or video services. Voice and video calls are provided through third-party infrastructure providers.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">8</div>Reports and Moderation</div>
+      <p class="section-body">Users may report content, accounts, comments, or activity that violates these Terms. We may review reported content and take appropriate action, including:</p>
+      <ul><li>Removing content</li><li>Restricting features</li><li>Suspending accounts</li><li>Permanently terminating accounts</li></ul>
+      <p class="section-body" style="margin-top:10px">Moderation decisions are made at our discretion.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">9</div>Intellectual Property</div>
+      <p class="section-body">Kasheer Connect and its associated branding, logos, software, designs, and platform features are owned by Kasheer Connect or its licensors. You may not copy, modify, reverse engineer, distribute, or sell any part of the Services except as permitted by law.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">10</div>Privacy</div>
+      <p class="section-body">Your use of the Services is also governed by our <a href="/privacy.html" style="color:var(--red)">Privacy Policy</a>. By using Kasheer Connect, you acknowledge that information may be collected, processed, and stored as described in the Privacy Policy.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">11</div>Account Suspension and Termination</div>
+      <p class="section-body">We may suspend, restrict, deactivate, or permanently terminate accounts that:</p>
+      <ul><li>Violate these Terms</li><li>Violate Community Guidelines</li><li>Engage in fraud, abuse, spam, or harmful activity</li><li>Attempt to circumvent security controls</li></ul>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">12</div>Account Deactivation and Deletion</div>
+      <p class="section-body">Users may deactivate or permanently delete their accounts through available platform tools. Deactivated accounts may be restored through login. Deleted accounts may not be recoverable. Certain information may be retained where required by law, security obligations, dispute resolution needs, or legitimate platform interests.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">13</div>Third-Party Services</div>
+      <p class="section-body">Kasheer Connect relies on third-party providers to operate portions of the Services. We are not responsible for third-party outages, policies, or actions outside our control.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">14</div>Disclaimers</div>
+      <p class="section-body">The Services are provided on an "as is" and "as available" basis. To the maximum extent permitted by law, Kasheer Connect makes no warranties regarding availability, reliability, accuracy, security, or fitness for a particular purpose.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">15</div>Limitation of Liability</div>
+      <p class="section-body">To the maximum extent permitted by law, Kasheer Connect, its owners, operators, employees, and affiliates shall not be liable for indirect, incidental, consequential damages, loss of profits, loss of data, or business interruption arising from use of the Services.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">16</div>Changes to the Services</div>
+      <p class="section-body">We may modify, suspend, discontinue, or update any feature of the Services at any time. We are not obligated to continue providing any specific feature indefinitely.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">17</div>Changes to These Terms</div>
+      <p class="section-body">We may update these Terms from time to time. Updated versions will be posted through the application or website. Continued use of the Services after changes become effective constitutes acceptance of the updated Terms.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">18</div>Governing Law</div>
+      <p class="section-body">These Terms shall be governed by and interpreted in accordance with the laws of India. Any disputes arising from or relating to the Services shall be subject to the exclusive jurisdiction of the competent courts of India.</p>
+    </div>
+    <div class="divider"></div>
+
+    <div class="section">
+      <div class="section-title"><div class="section-num">19</div>Contact Information</div>
+      <p class="section-body">For legal inquiries, support requests, or questions regarding these Terms:</p>
+      <div class="contact-card">
+        <strong>Kasheer Connect</strong>
+        <a href="mailto:support@kasheerconnect.in">support@kasheerconnect.in</a>
+        <span>kasheerconnect.in</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container" style="max-width:1100px">
+    <div class="footer-inner">
+      <div class="footer-logo">Kasheer<span>Connect</span></div>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/community.html">Guidelines</a>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-copy">© 2026 Kasheer Connect. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
